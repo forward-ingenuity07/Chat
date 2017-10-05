@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="module">
 <head>
     <meta name="format-detection"
           content="telephone=no" />
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src *  'unsafe-inline'; script-src *  'unsafe-inline'; media-src *">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight"
           content="no" />
     <meta name="viewport"
@@ -11,11 +13,11 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="angular-socket-io/socket.js"></script>
-
+   
+    <script src="http://forwardingenuity.com/socket.io.js"></script>
     <script src="scripts/jquery-3.1.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    <script src="https://raw.githubusercontent.com/pubnub/pubnub-angular/master/dist/pubnub-angular.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/messages.js"></script>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <style>
         * {
@@ -198,12 +200,12 @@
         });
         */
     </script>
-
+    
 </head>
 <body>
 
     <div class="chatbox">
-        <div class="chatlogs" id="chatWindow">
+        <div class="chatlogs" id="chatWindow" ng-controller="controller">
             <!--User one-->
             <div class="chat friend">
                 <div class="user-photo"><img src="Chip.png" /></div>
@@ -243,6 +245,10 @@
                     This is the choice you have made, thank you LORD
                 </p>
             </div>
+            <div class="chat self" ng-repeat="x in msg">
+                <div class="user-photo"><img src="Chip2.png" /></div>
+                <p class="chat-message">{{x.message}}</p>
+            </div>
 
 
         </div>
@@ -265,31 +271,27 @@
                 if ((!valu.replace(/\s/g, '').length)) {
                     $button.css('display', 'none');
                 }
+
                 else{
                     $button.css('display', 'block');
                 }
             });
-            $messageForm.submit(function (e) {
+        /*    $messageForm.submit(function (e) {
                 e.preventDefault();
                 socket.emit('send message', $message.val());
                 $message.val('');
                 $button.css('display', 'none');
-            });
+            });*/
            /* socket.on('new message', function (data) {
                 $chat.append('<div class="chat self"><div class="user-photo"><img src="Chip2.png" /></div><p class="chat-message">' + data.msg + '</p></div>')
             })*/
         });
 
     </script>
-    <script src="https://forwardingenuity.com/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io.connect('https://forwardingenuity.com');
-    socket.on('news', function (data) {
-        socket.emit('my other event', { my: 'data' });
-        alert('connected');
-    });
-    </script>
-    <script src="../app.js"></script>
+   <script>
+      
+   </script>
 
+    
 </body>
 </html>
